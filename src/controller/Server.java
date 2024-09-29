@@ -18,7 +18,6 @@ public class Server {
     public static List<ServerSocketHandle> listSocket = new ArrayList<>();
 
     public Server() {
-
     }
 
     public static void main(String[] args) {

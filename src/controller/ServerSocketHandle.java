@@ -56,6 +56,12 @@ public class ServerSocketHandle implements Runnable {
                 String receiveMessage = reader.readLine();
                 String[] req = receiveMessage.split(" ");
                 
+                // phần này Khanh code
+                write(req[0]);
+                // phần này Yến code
+                
+                // Phần này Hải và Anh code
+                
                 
             }
         } catch (Exception e) {
