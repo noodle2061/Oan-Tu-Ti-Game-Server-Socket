@@ -56,11 +56,22 @@ public class ServerSocketHandle implements Runnable {
                 String receiveMessage = reader.readLine();
                 String[] req = receiveMessage.split(" ");
                 
-                // phần này Khanh code
-                write(req[0]);
-                // phần này Yến code
+            // phần này Khanh code
                 
-                // Phần này Hải và Anh code
+                //xu ly yeu cau dang nhap
+                if (req[0].equals("login-request")) {
+                    String name = req[1];
+                    String password = req[2];
+                    
+                }
+                
+                if (req[0].equals("register-request")) {
+                    
+                }
+                
+            // phần này Yến code
+                
+            // Phần này Hải và Anh code
                 
                 
             }

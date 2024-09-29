@@ -15,7 +15,7 @@ import java.sql.DriverManager;
 public class DBContext {
     protected Connection connection = null;
     // URL kết nối tới cơ sở dữ liệu MySQL
-    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/oan_tu_ti";
+    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/keobubao";
     private static final String DATABASE_USER = "root"; 
     private static final String DATABASE_PASSWORD = "123456"; 
 
