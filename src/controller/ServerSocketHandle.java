@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import model.User;
 
 /**
  *
@@ -17,6 +18,7 @@ public class ServerSocketHandle implements Runnable {
     private Socket socket;
     private BufferedReader reader;
     private PrintWriter writer;
+    private int userId;
 
     public ServerSocketHandle(Socket socket) {
         try {
@@ -27,6 +29,15 @@ public class ServerSocketHandle implements Runnable {
             System.out.println(e);
         }        
     }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
     
     // gửi gói tin đến Client
     public void write(String message) {
