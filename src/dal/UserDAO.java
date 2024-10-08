@@ -55,6 +55,29 @@ public class UserDAO extends DBContext{
         }
         return null;
     }
+    
+    public User VerifyUser(String name, String password) {
+        String sql = "SELECT * FROM User WHERE name = \"" + name + "\" and password = \"" + password + "\"";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return new User(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("password"),
+                        rs.getInt("match_count"),
+                        rs.getInt("win_count"),
+                        rs.getInt("draw_count"),
+                        rs.getInt("lose_count"),
+                        rs.getInt("points"),
+                        rs.getString("avatar")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     // Read all users
     public List<User> getAllUsers() {

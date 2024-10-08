@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package controller;
+import dal.UserDAO;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -18,7 +19,7 @@ public class ServerSocketHandle implements Runnable {
     private Socket socket;
     private BufferedReader reader;
     private PrintWriter writer;
-    private int userId;
+    private User user;
 
     public ServerSocketHandle(Socket socket) {
         try {
@@ -30,17 +31,22 @@ public class ServerSocketHandle implements Runnable {
         }        
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
+
+    
 
     
     // gửi gói tin đến Client
     public void write(String message) {
+        String userName = "guess";
+        if (user != null) userName = user.getName();
+        System.out.println("Server to "+ userName +" : " + message);
         writer.println(message);
         writer.flush();
     }
@@ -51,21 +57,38 @@ public class ServerSocketHandle implements Runnable {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter writer = new PrintWriter(socket.getOutputStream());
             
+            // khai bao đối tượng DAO 
+            UserDAO udb = new UserDAO();
+            
             // luôn lắng nghe Client
             while (true) {
                 String receiveMessage = reader.readLine();
-                String[] req = receiveMessage.split(" ");
+                String[] req = receiveMessage.split("\\$");
+                String type = req[0];
+                
+                System.out.println("Client: " + receiveMessage);
+                
+                System.out.println(type);
                 
             // phần này Khanh code
                 
                 //xu ly yeu cau dang nhap
-                if (req[0].equals("login-request")) {
+                if (type.equals("login-request")) {
+                    System.out.println("hello");
                     String name = req[1];
                     String password = req[2];
+                    User u = udb.VerifyUser(name, password);
                     
+//                    System.out.println(u.toString());
+                    
+                    if (u != null) {
+                        write("login-response$success$" + u.toString());
+                    } else {
+                        write("login-response$fail");
+                    }
                 }
                 
-                if (req[0].equals("register-request")) {
+                if (type.equals("register-request")) {
                     
                 }
                 
